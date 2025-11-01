@@ -49,7 +49,12 @@ export default function Register() {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", formData);
+      const res =await axios.post("http://localhost:5000/api/auth/register", {
+  name,
+  email,
+  password,
+});
+
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {

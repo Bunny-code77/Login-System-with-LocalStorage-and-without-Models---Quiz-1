@@ -1,91 +1,92 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); // clear previous errors
 
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required.");
+    // ✅ simple client-side validation
+    if (!email || !password) {
+      setError("Please fill in both fields");
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      // ✅ send login request to backend
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
       });
 
-      const data = await res.json();
+      if (res.data.token) {
+        // ✅ store JWT token
+        localStorage.setItem("token", res.data.token);
 
-      if (!res.ok) {
-        setError(data.message || "Invalid credentials.");
-      } else {
-        localStorage.setItem("token", data.token);
-        alert("Login successful!");
+        // ✅ redirect to dashboard
         navigate("/dashboard");
+      } else {
+        setError("Login failed — please try again.");
       }
     } catch (err) {
-      setError("Server error. Try again later.");
+      console.error("Login failed:", err.response?.data || err);
+      setError("Incorrect email or password");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-purple-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-md w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold text-purple-700 mb-6 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-purple-50">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-purple-700 mb-6">
           Login
         </h2>
 
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 mb-3 border rounded-lg focus:ring focus:ring-purple-300"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-purple-300"
+            required
+          />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-lg mb-3"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-lg mb-5"
-        />
+          {error && (
+            <p className="text-red-600 text-sm mb-3 text-center">{error}</p>
+          )}
 
-        <button
-          type="submit"
-          className="w-full bg-purple-700 text-white py-2 rounded-lg hover:bg-purple-800 transition"
-        >
-          Login
-        </button>
+          <button
+            type="submit"
+            className="w-full bg-purple-700 text-white py-2 rounded-lg hover:bg-purple-800 transition"
+          >
+            Login
+          </button>
+        </form>
 
-        <p className="mt-4 text-center text-sm">
+        <p className="text-sm text-center text-gray-600 mt-4">
           Don’t have an account?{" "}
-          <a href="/register" className="text-purple-700 underline">
-            Register
+          <a
+            href="/register"
+            className="text-purple-700 font-semibold hover:underline"
+          >
+            Register here
           </a>
         </p>
-      </form>
+      </div>
     </div>
   );
 }
