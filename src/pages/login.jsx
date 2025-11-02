@@ -48,22 +48,27 @@ export default function Login() {
         </h2>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 mb-3 border rounded-lg focus:ring focus:ring-purple-300"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-purple-300"
-            required
-          />
+         
+<input
+  type="email"
+  placeholder="Email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="w-full p-3 mb-3 border rounded-lg focus:ring focus:ring-purple-300"
+  required
+  autoComplete="email"
+/>
+
+<input
+  type="password"
+  placeholder="Password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-purple-300"
+  required
+  autoComplete="current-password"
+/>
+
 
           {error && (
             <p className="text-red-600 text-sm mb-3 text-center">{error}</p>

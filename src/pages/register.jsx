@@ -12,12 +12,10 @@ export default function Register() {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  // handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // validate fields before sending to backend
   const validateForm = () => {
     const { name, email, password } = formData;
 
@@ -26,14 +24,12 @@ export default function Register() {
       return false;
     }
 
-    // basic email check
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setError("Please enter a valid email address.");
       return false;
     }
 
-    // password length check
     if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return false;
@@ -43,21 +39,19 @@ export default function Register() {
     return true;
   };
 
-  // handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     try {
-      const res =await axios.post("http://localhost:5000/api/auth/register", {
-  name,
-  email,
-  password,
-});
+      // ✅ Use formData directly here
+      const { data } = await axios.post("http://localhost:5000/api/auth/register", formData);
 
+      console.log("✅ Registration success:", data);
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
+      console.error("❌ Registration error:", err.response?.data || err);
       setError(err.response?.data?.message || "Server error. Try again later.");
     }
   };
@@ -79,6 +73,7 @@ export default function Register() {
           placeholder="Full Name"
           value={formData.name}
           onChange={handleChange}
+          autoComplete="name"
           className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <input
@@ -87,6 +82,7 @@ export default function Register() {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
+          autoComplete="email"
           className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <input
@@ -95,6 +91,7 @@ export default function Register() {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="new-password"
           className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
 
