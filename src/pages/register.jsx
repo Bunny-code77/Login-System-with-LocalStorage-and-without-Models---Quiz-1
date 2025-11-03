@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import dashboardBg from "../images/Dashboard.png"; // ✅ import the image properly
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -69,21 +70,21 @@ export default function Register() {
     <div
       className="min-h-screen flex justify-center items-center bg-cover bg-center relative"
       style={{
-        backgroundImage:
-          "url('https://www.loomly.com/hubfs/IMG%20Area-Feb-10-2024-06-06-30-3129-AM.png')",
+        backgroundImage: `url(${dashboardBg})`, // ✅ use imported image dynamically
       }}
     >
-      
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
+      {/* Form Card */}
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100"
+        className="relative z-10 bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100"
       >
         <h2 className="text-3xl font-extrabold text-center text-purple-700 mb-2">
           Create Account
         </h2>
-        <p className="text-center text-gray-500 mb-4">Join PostPlanner today </p>
+        <p className="text-center text-gray-500 mb-4">Join PostPlanner today</p>
 
         {error && <p className="text-red-500 text-center mb-2">{error}</p>}
         {success && <p className="text-green-500 text-center mb-2">{success}</p>}
@@ -127,7 +128,7 @@ export default function Register() {
 
         <button
           type="submit"
-          className="w-full bg-[#287379]  text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
+          className="w-full bg-[#287379] text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
         >
           Sign Up
         </button>

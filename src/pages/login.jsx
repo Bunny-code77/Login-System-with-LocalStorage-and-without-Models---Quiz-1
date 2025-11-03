@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import dashboardBg from "../images/Dashboard.png"; // ✅ imported local image
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -39,16 +40,16 @@ export default function Login() {
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{
-        backgroundImage:
-          "url('https://www.loomly.com/hubfs/IMG%20Area-Feb-10-2024-06-06-30-3129-AM.png')",
+        backgroundImage: `url(${dashboardBg})`, // ✅ using imported background
       }}
     >
-      {/* Overlay to tone down brightness */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+      {/* Overlay for soft blur and contrast */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
 
-      <div className="relative z-10 bg-white/90 backdrop-blur-lg p-10 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100">
+      {/* Login Card */}
+      <div className="relative z-10 bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100">
         <h2 className="text-3xl font-extrabold text-center text-purple-700 mb-2">
-          Welcome Back 
+          Welcome Back 👋
         </h2>
         <p className="text-center text-gray-500 mb-6">
           Login to continue to <span className="font-semibold">PostPlanner</span>
@@ -81,27 +82,33 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-[#287379]  text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
+            className="w-full bg-[#287379] text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
           >
             Log In
           </button>
         </form>
 
+        {/* Footer Links */}
         <div className="flex justify-between items-center text-sm text-gray-600 mt-4">
           <a href="#" className="hover:text-purple-600">
             Forgot Password?
           </a>
-          <a href="/register" className="text-purple-700 font-semibold hover:underline">
+          <a
+            href="/register"
+            className="text-purple-700 font-semibold hover:underline"
+          >
             Create Account
           </a>
         </div>
 
+        {/* Divider */}
         <div className="mt-6 flex items-center justify-center">
           <div className="h-px bg-gray-300 flex-grow"></div>
           <span className="mx-3 text-gray-500 text-sm">or</span>
           <div className="h-px bg-gray-300 flex-grow"></div>
         </div>
 
+        {/* Google Login Button */}
         <button
           type="button"
           className="mt-4 w-full flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition"
