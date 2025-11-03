@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar"; 
 import { CalendarDays, Clock, Hash, TrendingUp, Bell, Settings, BarChart3, PlusCircle } from "lucide-react";
+import img3 from "../images/Dashboard.png";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -141,7 +142,7 @@ export default function Dashboard() {
           <div className="relative">
             <div className="absolute inset-0 bg-purple-200 rounded-3xl transform rotate-3"></div>
             <img
-              src="https://www.loomly.com/hubfs/IMG%20Area-Feb-10-2024-06-06-30-3129-AM.png"
+              src={img3}
               alt="Analytics Preview"
               className="relative rounded-3xl shadow-lg w-full object-cover"
               loading="lazy"

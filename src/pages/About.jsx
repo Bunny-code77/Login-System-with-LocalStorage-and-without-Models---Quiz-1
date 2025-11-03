@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar"; 
+import img1 from "../images/About.png";
 
 
 export default function About() {
@@ -56,7 +57,7 @@ export default function About() {
 
           <div className="relative">
             <img
-              src="https://www.loomly.com/hs-fs/hubfs/images/web/home/IMG-Feb-07-2024-01-57-58-2222-PM_opt.png?width=887&quality=low"
+              src={img1}
               alt="Team working together"
               className="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
             />

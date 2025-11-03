@@ -1,26 +1,30 @@
 import Navbar from "../components/Navbar"; // ✅ Added Navbar import
+import img4 from "../images/ServicesColab.png";
+import img5 from "../images/ServicesPost.png";
+import img6 from "../images/ServicesContent.png";
+import img7 from "../images/ServicesAnalytics.png";
 
 export default function Services() {
   const features = [
     {
       title: "Collaboration & Approvals",
       desc: "Multi-level approvals, comments, and version history to keep your workflow smooth and transparent.",
-      img: "https://www.loomly.com/hubfs/Blog%20featured%20image_Photo%20dumps%20(2).jpg",
+      img: img4,
     },
     {
       title: "Post Scheduling & Calendar",
       desc: "Visual calendar, flexible scheduling, and real-time previews for each platform.",
-      img: "https://www.loomly.com/hubfs/FB%20First%20Comment.jpg",
+      img: img5,
     },
     {
       title: "Content Library + Editor",
       desc: "Store, organize, and edit all your content assets in one place — from captions to visuals.",
-      img: "https://www.loomly.com/hubfs/011725_10%20of%20the%20Best%20Social%20Media%20Marketing%20Books%20to%20Read%20in%202025.jpg",
+      img: img6,
     },
     {
       title: "Analytics & Reporting",
       desc: "Gain insights with exportable reports, post performance tracking, and engagement analytics.",
-      img: "https://www.loomly.com/hubfs/Social%20media%20KPIs.png",
+      img: img7,
     },
   ];
 

@@ -1,5 +1,8 @@
 import Navbar from "../components/Navbar"; // ✅ Add Navbar import
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import img2 from "../images/Contact.png";
+import img8 from "../images/Contact2.png";
+import img9 from "../images/Contact3.png";
 
 export default function Contact() {
   return (
@@ -18,7 +21,7 @@ export default function Contact() {
             {/* First Image */}
             <div className="absolute w-64 h-64 border-8 border-purple-300 rounded-xl overflow-hidden transform -translate-x-12 translate-y-6 rotate-[-8deg] shadow-lg hover:scale-105 transition-transform duration-500">
               <img
-                src="https://www.loomly.com/hubfs/Social%20media%20community%20management%202025-1.jpg"
+                src={img2}
                 alt="contact pattern 1"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -28,7 +31,7 @@ export default function Contact() {
             {/* Second Image */}
             <div className="absolute w-64 h-64 border-8 border-purple-500 rounded-xl overflow-hidden transform translate-x-12 -translate-y-8 rotate-[8deg] shadow-lg hover:scale-105 transition-transform duration-500">
               <img
-                src="https://www.loomly.com/hs-fs/hubfs/images/web/home/look-studio-oA1U8SrjN5s-unsplash_opt.jpg?width=1199&quality=low"
+                src={img8}
                 alt="contact pattern 2"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -38,7 +41,7 @@ export default function Contact() {
             {/* Third Image */}
             <div className="absolute w-60 h-60 border-8 border-purple-200 rounded-xl overflow-hidden transform -translate-y-20 rotate-[3deg] shadow-md hover:scale-105 transition-transform duration-500">
               <img
-                src="https://www.loomly.com/hs-fs/hubfs/images/web/home/ceyda-ciftci-Vj0qd6Uemdo-unsplash_opt.jpg?width=799&quality=low"
+                src={img9}
                 alt="contact pattern 3"
                 className="w-full h-full object-cover"
                 loading="lazy"
