@@ -26,10 +26,18 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-medium mb-2">Contact</h4>
-          <p className="text-sm">support@postplanner.example</p>
-          <p className="text-sm mt-2">© {new Date().getFullYear()} PostPlanner</p>
-        </div>
+  <h4 className="font-medium mb-2">Contact</h4>
+  <a
+    href="mailto:zimbunny@gmail.com"
+    className="text-sm text-white-700 hover:underline hover:text-purple-900 transition"
+  >
+    zimbunny@gmail.com
+  </a>
+  <p className="text-sm mt-2">
+    © {new Date().getFullYear()} PostPlanner
+  </p>
+</div>
+
       </div>
     </footer>
   );

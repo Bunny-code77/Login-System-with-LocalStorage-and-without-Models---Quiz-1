@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar"; 
-import { CalendarDays, Clock, Hash, TrendingUp } from "lucide-react";
+import { CalendarDays, Clock, Hash, TrendingUp, Bell, Settings, BarChart3, PlusCircle } from "lucide-react";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -40,14 +39,19 @@ export default function Dashboard() {
     { platform: "LinkedIn", date: "Nov 8, 2025", time: "9:30 AM", status: "Scheduled" },
   ];
 
+  const notifications = [
+    { msg: "🎉 Your post on Instagram reached 1k likes!", time: "2 hours ago" },
+    { msg: "🔔 New follower on Twitter", time: "4 hours ago" },
+    { msg: "✅ Facebook post scheduled successfully", time: "1 day ago" },
+  ];
+
   return (
     <>
-      {/* ✅ Navbar at the top */}
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 py-12 min-h-screen bg-gradient-to-br from-purple-50 to-white">
         
-        {/* Page Header */}
+        {/* Header */}
         <header className="flex items-center justify-between mb-10">
           <h1 className="text-3xl font-extrabold text-purple-700 tracking-tight">
             Dashboard Overview
@@ -75,7 +79,9 @@ export default function Dashboard() {
         </div>
 
         {/* Upcoming Posts */}
-        <section className="bg-white p-6 rounded-2xl shadow-lg border border-purple-100">
+{/* Upcoming Posts */}
+<section className="bg-[#f0fafa] p-6 rounded-2xl shadow-lg border border-[#cde4e4] transition-all duration-300">
+
           <h2 className="text-2xl font-bold text-purple-700 mb-3">Upcoming Posts</h2>
           <p className="text-gray-600 mb-5">
             Keep track of your scheduled and pending posts across all platforms.
@@ -119,7 +125,7 @@ export default function Dashboard() {
         </section>
 
         {/* Insights Section */}
-        <section className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <section className="mt-25 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-2xl font-bold text-purple-700 mb-3">Insights Summary</h2>
             <p className="text-gray-600 leading-relaxed mb-5">
@@ -140,6 +146,43 @@ export default function Dashboard() {
               className="relative rounded-3xl shadow-lg w-full object-cover"
               loading="lazy"
             />
+          </div>
+        </section>
+
+        {/* 🔔 Notifications Section */}
+        <section className="mt-25 bg-white p-6 rounded-2xl shadow-lg border border-purple-100">
+          <h2 className="text-2xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+            <Bell className="text-purple-600" /> Recent Notifications
+          </h2>
+          <ul className="space-y-4">
+            {notifications.map((note, idx) => (
+              <li
+                key={idx}
+                className="flex items-center justify-between bg-purple-50 p-4 rounded-xl hover:bg-purple-100 transition"
+              >
+                <span className="text-gray-700 font-medium">{note.msg}</span>
+                <span className="text-xs text-gray-500">{note.time}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ⚙️ Quick Actions */}
+        <section className="mt-25 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-gradient-to-r from-purple-600 to-purple-500 p-6 rounded-2xl text-white flex flex-col items-center shadow hover:scale-105 transition">
+            <PlusCircle className="w-10 h-10 mb-3" />
+            <h3 className="font-bold text-lg">Create Post</h3>
+            <p className="text-sm text-purple-100 mt-1">Start planning your next campaign</p>
+          </div>
+          <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-6 rounded-2xl text-white flex flex-col items-center shadow hover:scale-105 transition">
+            <BarChart3 className="w-10 h-10 mb-3" />
+            <h3 className="font-bold text-lg">View Analytics</h3>
+            <p className="text-sm text-teal-100 mt-1">Analyze engagement trends</p>
+          </div>
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 p-6 rounded-2xl text-white flex flex-col items-center shadow hover:scale-105 transition">
+            <Settings className="w-10 h-10 mb-3" />
+            <h3 className="font-bold text-lg">Manage Account</h3>
+            <p className="text-sm text-indigo-100 mt-1">Update your profile settings</p>
           </div>
         </section>
       </div>

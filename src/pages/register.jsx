@@ -44,7 +44,7 @@ export default function Register() {
     if (!validateForm()) return;
 
     try {
-      // ✅ Use formData directly here
+      
       const { data } = await axios.post("http://localhost:5000/api/auth/register", formData);
 
       console.log("✅ Registration success:", data);
@@ -99,7 +99,7 @@ export default function Register() {
           type="submit"
           className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
         >
-          Register
+         Sign UP
         </button>
 
         <p className="text-center text-sm text-gray-600">
