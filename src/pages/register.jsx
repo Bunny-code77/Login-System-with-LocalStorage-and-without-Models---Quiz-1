@@ -94,6 +94,15 @@ export default function Register() {
           autoComplete="new-password"
           className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
+ <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-purple-500 focus:ring focus:ring-purple-100 outline-none"
+          />
+    
 
         <button
           type="submit"
