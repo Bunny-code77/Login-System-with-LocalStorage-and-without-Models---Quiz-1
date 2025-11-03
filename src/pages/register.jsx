@@ -7,7 +7,9 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -17,9 +19,9 @@ export default function Register() {
   };
 
   const validateForm = () => {
-    const { name, email, password } = formData;
+    const { name, email, password, confirmPassword } = formData;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required!");
       return false;
     }
@@ -35,6 +37,11 @@ export default function Register() {
       return false;
     }
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      return false;
+    }
+
     setError("");
     return true;
   };
@@ -44,10 +51,12 @@ export default function Register() {
     if (!validateForm()) return;
 
     try {
-      
-      const { data } = await axios.post("http://localhost:5000/api/auth/register", formData);
+      const { data } = await axios.post("http://localhost:5000/api/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
 
-      console.log("✅ Registration success:", data);
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
@@ -57,15 +66,27 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-purple-50">
+    <div
+      className="min-h-screen flex justify-center items-center bg-cover bg-center relative"
+      style={{
+        backgroundImage:
+          "url('https://www.loomly.com/hubfs/IMG%20Area-Feb-10-2024-06-06-30-3129-AM.png')",
+      }}
+    >
+      
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md space-y-4"
+        className="relative z-10 bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100"
       >
-        <h2 className="text-2xl font-bold text-center text-purple-700">Register</h2>
+        <h2 className="text-3xl font-extrabold text-center text-purple-700 mb-2">
+          Create Account
+        </h2>
+        <p className="text-center text-gray-500 mb-4">Join PostPlanner today </p>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        {success && <p className="text-green-500 text-center">{success}</p>}
+        {error && <p className="text-red-500 text-center mb-2">{error}</p>}
+        {success && <p className="text-green-500 text-center mb-2">{success}</p>}
 
         <input
           type="text"
@@ -74,7 +95,7 @@ export default function Register() {
           value={formData.name}
           onChange={handleChange}
           autoComplete="name"
-          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3"
         />
         <input
           type="email"
@@ -83,7 +104,7 @@ export default function Register() {
           value={formData.email}
           onChange={handleChange}
           autoComplete="email"
-          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3"
         />
         <input
           type="password"
@@ -92,28 +113,28 @@ export default function Register() {
           value={formData.password}
           onChange={handleChange}
           autoComplete="new-password"
-          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-3"
         />
- <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-purple-500 focus:ring focus:ring-purple-100 outline-none"
-          />
-    
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          autoComplete="new-password"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-5"
+        />
 
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
+          className="w-full bg-[#287379]  text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
         >
-         Sign UP
+          Sign Up
         </button>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-purple-600 underline">
+          <a href="/login" className="text-purple-700 font-medium hover:underline">
             Login
           </a>
         </p>

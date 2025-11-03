@@ -10,26 +10,21 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // clear previous errors
+    setError("");
 
-    // ✅ simple client-side validation
     if (!email || !password) {
       setError("Please fill in both fields");
       return;
     }
 
     try {
-      // ✅ send login request to backend
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         email,
         password,
       });
 
       if (res.data.token) {
-        // ✅ store JWT token
         localStorage.setItem("token", res.data.token);
-
-        // ✅ redirect to dashboard
         navigate("/dashboard");
       } else {
         setError("Login failed — please try again.");
@@ -41,56 +36,85 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-50">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center text-purple-700 mb-6">
-          Login
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+      style={{
+        backgroundImage:
+          "url('https://www.loomly.com/hubfs/IMG%20Area-Feb-10-2024-06-06-30-3129-AM.png')",
+      }}
+    >
+      {/* Overlay to tone down brightness */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+      <div className="relative z-10 bg-white/90 backdrop-blur-lg p-10 rounded-3xl shadow-2xl w-full max-w-md border border-purple-100">
+        <h2 className="text-3xl font-extrabold text-center text-purple-700 mb-2">
+          Welcome Back 
         </h2>
+        <p className="text-center text-gray-500 mb-6">
+          Login to continue to <span className="font-semibold">PostPlanner</span>
+        </p>
 
         <form onSubmit={handleSubmit}>
-         
-<input
-  type="email"
-  placeholder="Email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  className="w-full p-3 mb-3 border rounded-lg focus:ring focus:ring-purple-300"
-  required
-  autoComplete="email"
-/>
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full mb-4 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+            autoComplete="email"
+          />
 
-<input
-  type="password"
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="w-full p-3 mb-4 border rounded-lg focus:ring focus:ring-purple-300"
-  required
-  autoComplete="current-password"
-/>
-
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full mb-4 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+            autoComplete="current-password"
+          />
 
           {error && (
-            <p className="text-red-600 text-sm mb-3 text-center">{error}</p>
+            <p className="text-red-600 text-sm text-center mb-4">{error}</p>
           )}
 
           <button
             type="submit"
-            className="w-full bg-purple-700 text-white py-2 rounded-lg hover:bg-purple-800 transition"
+            className="w-full bg-[#287379]  text-white font-semibold py-3 rounded-lg shadow-lg hover:opacity-90 transition duration-300"
           >
-            Login
+            Log In
           </button>
         </form>
 
-        <p className="text-sm text-center text-gray-600 mt-4">
-          Don’t have an account?{" "}
-          <a
-            href="/register"
-            className="text-purple-700 font-semibold hover:underline"
-          >
-            Register here
+        <div className="flex justify-between items-center text-sm text-gray-600 mt-4">
+          <a href="#" className="hover:text-purple-600">
+            Forgot Password?
           </a>
-        </p>
+          <a href="/register" className="text-purple-700 font-semibold hover:underline">
+            Create Account
+          </a>
+        </div>
+
+        <div className="mt-6 flex items-center justify-center">
+          <div className="h-px bg-gray-300 flex-grow"></div>
+          <span className="mx-3 text-gray-500 text-sm">or</span>
+          <div className="h-px bg-gray-300 flex-grow"></div>
+        </div>
+
+        <button
+          type="button"
+          className="mt-4 w-full flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-50 transition"
+        >
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
+          <span className="text-sm text-gray-700 font-medium">
+            Continue with Google
+          </span>
+        </button>
       </div>
     </div>
   );
